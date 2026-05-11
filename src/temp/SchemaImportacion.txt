@@ -1,0 +1,149 @@
+Table CPAIS {
+  ID_PAIS varchar (100) [PK, not null]
+  COD_PAIS varchar (100) [not null]
+  PAIS varchar (100) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table CPROV {
+  ID_PROV varchar (20) [PK, not null]
+  ID_PAIS varchar (20) [ref: > CPAIS.ID_PAIS, not null]
+  PROVINCIA varchar (100) [not null]
+  CODE_SAP int (30) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table CCANT {
+  ID_CANT varchar (25) [PK, not null]
+  ID_PROV varchar (20) [ref: > CPROV.ID_PROV, not null]
+  CANTON varchar (100) [not null]
+  KILOMETROS int (30)
+  PEAJES double (10, 2)
+  FACTOR double (10, 2)
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table PRTO {
+  ID_PRTO varchar (20) [PK, not null]
+  ID_CANT varchar (25) [ref: > CCANT.ID_CANT, not null]
+  NOMBRE varchar (100) [not null]
+  DIRECCION varchar (100) [not null]
+  EMAIL varchar (100) [not null]
+  DUENIO varchar (100) [not null]
+  TELEFONO_ONE varchar (50) [not null]
+  TELEFONO_TWO varchar (50) [not null]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table TIMPT {
+  ID_TIMPT varchar (50) [PK, not null]
+  NUMERO varchar (100) [not null]
+  TIPO varchar (100) [not null, note: "🚢 028 = Maritimo, 🛫 000 = Aereo, 🚛 008 = Terrestre"]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Enum REGIMEN {
+  10
+  21
+}
+
+Table IMPT {
+  ID_IMPT varchar (50) [PK, not null]
+  ID_PAIS varchar (50) [ref: > CPAIS.ID_PAIS, not null]
+  ID_PRTO varchar (50) [ref: > PRTO.ID_PRTO, not null]
+  ID_TIMPT varchar (50) [ref: > TIMPT.ID_TIMPT, not null]
+  ID_FIMPORTA varchar (50) [not null]
+  ORDEN_COMPRA int (30)
+  FACTURA varchar (30)
+  DAI varchar (50) [not null]
+  MRN varchar (50) [not null]
+  BL varchar (50) [not null]
+  PROVEEDOR varchar (50) [not null]
+  DATE_ARRIBO datetime [not null]
+  VENC_ECAS datetime [not null]
+  REGIMEN REGIMEN [not null]
+  COMENTARIO varchar(1000)
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table CNTNR {
+  ID_CNTNR varchar (20) [PK, not null]
+  ID_IMPT varchar (20) [ref: > IMPT.ID_IMPT, not null]
+  COD_CONTENEDOR varchar (50) [not null]
+  DATE_LLEGADA datetime [not null]
+  DEVOLUCION varchar (10) [default: 'N']
+  DEV_DESTINO varchar (50) [not null]
+  VENC_ECAS datetime [not null]
+  PESO double (15, 5) [null]
+  COMENTARIO varchar(1000) [null]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table TINVC {
+  ID_TINVC varchar (50) [PK, not null]
+  TIPO varchar (100) [not null, note: " 🛠 Respuestos, 🚛 Insumos, 📜 Papel, 😒 Activo Fijos"]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table INVC {
+  ID_INVC varchar (50) [PK, not null]
+  ID_TINVC varchar (50) [ref: > TINVC.ID_TINVC, not null]
+  ID_IMPT varchar (50) [ref: > IMPT.ID_IMPT, not null]
+  COMENTARIO varchar(1000) [null]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table INSM {
+  ID_INSM varchar (50) [PK, not null]
+  ID_INVC varchar (50) [ref: > INVC.ID_INVC, not null]
+  DETALLE varchar (50) [not null]
+  CANTIDAD int (20) [not null]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table TPAP {
+  ID_TPAP varchar (50) [PK, not null]
+  COD_PAPEL varchar (50) [not null]
+  DETALLE varchar (100)
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table BOBI {
+  ID_BOBI varchar (50) [PK, not null]
+  ID_TPAP varchar (50) [ref: > TPAP.ID_TPAP, not null]
+  ID_CNTNR varchar (50) [ref: > CNTNR.ID_CNTNR, not null]
+  ID_INVC varchar (50) [ref: > INVC.ID_INVC, not null]
+  ID_PAPEL varchar (50) [not null]
+  CODIGO_BOB varchar (50) [not null]
+  LOTE varchar (50) [not null]
+  ANCHO double (15, 2) [null]
+  LARGO double (15, 2) [null]
+  GRAMAJE double (15, 2) [null]
+  PESO double (15, 2) [null]
+  MLINEALES double (15, 2) [null]
+  CANTIDAD int (10) [null]
+  ESTADO varchar (50) [null]
+  COMENTARIO varchar(1000) [null]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}

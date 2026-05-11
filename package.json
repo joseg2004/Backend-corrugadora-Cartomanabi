@@ -1,0 +1,47 @@
+{
+  "author": "",
+  "dependencies": {
+    "activedirectory": "^0.7.2",
+    "axios": "^1.7.8",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.1",
+    "express-rate-limit": "^8.2.1",
+    "hdb": "^0.19.10",
+    "helmet": "^8.1.0",
+    "ioredis": "^5.9.2",
+    "jsonwebtoken": "^9.0.2",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.4",
+    "moment": "^2.30.1",
+    "morgan": "^1.10.0",
+    "multer": "1.4.5-lts.1",
+    "mysql": "^2.18.1",
+    "nanoid": "^3.3.4",
+    "nodemailer": "^6.9.16",
+    "pdf-lib": "^1.17.1",
+    "pdfmake": "^0.2.20",
+    "pg": "^8.13.1",
+    "qr-image": "^3.2.0",
+    "qrcode": "^1.5.4",
+    "response-time": "^2.3.3",
+    "winston": "^3.19.0",
+    "xlsx": "^0.18.5"
+  },
+  "description": "",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "nodemon": "^3.1.7"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "backend-corrugadora",
+  "scripts": {
+    "dev": "nodemon src/index.js --config nodemon.json",
+    "start": "node src/index.js"
+  },
+  "version": "1.0.0"
+}

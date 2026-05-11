@@ -1,0 +1,53 @@
+Table FR21 {
+  ID_FR21 varchar (50) [PK, not null, note: 'Formato: 0000001']
+  ID_AUTH varchar (250) [not null]
+  COMENTARIO varchar (1000) [null]
+  FECHA1 varchar (25) [null]
+  FECHA2 varchar (25) [null]
+  SALDO varchar (25) [null, note: 'SI ✅; NO ❌']
+  ESTADO varchar (15) [default: 'I', note: "Generado/Inicializado (I), Creado (C), Aceptado (G), Compensado (O), Anulado (A)"]
+  USER varchar (20) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table CAFR21 {
+  ID_CAFR21 int (10) [increment, not null]
+  ID_FR21 varchar (50) [ref: > FR21.ID_FR21, not null]
+  DOC_SAP varchar (50) [not null]
+  ntfc_no varchar (50) [PK, not null]
+  ntfc_de varchar (50) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table PDFR21 {
+  ID_PDFR21 int (10) [PK, increment, not null]
+  ID_FR21 varchar (50) [ref: > FR21.ID_FR21, not null]
+  ntfc_no varchar (50) [not null]
+  SUBPARTIDA varchar (50) [not null]
+  CODE_PT varchar (50) [not null]
+  DESCRIPCION varchar (50) [not null]
+  U_MEDIDA varchar (50) [not null, default: 'U']
+  CANTIDAD int (10) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
+
+Table MPFR21 {
+  ID_MPFR21 int (10) [PK, increment, not null]
+  ID_FR21 varchar (50) [ref: > FR21.ID_FR21, not null]
+  ITM_FR21 int (10) [not null]
+  CODE_PT varchar (50) [not null]
+  ntfc_no varchar (50) [not null]
+  DAI varchar (100) [not null]
+  COD_ADUANA varchar (50) [not null]
+  SUBPARTIDA varchar (50) [not null]
+  U_MEDIDA varchar (50) [not null, default: 'KG']
+  CANTIDAD double (15, 3) [not null]
+  DESPERDICIO double (15, 3) [not null]
+  MERMA double (15, 3) [not null]
+  TOTAL double (15, 3) [not null]
+  CREATED_AT datetime [default: `now()`]
+  UPDATED_AT datetime [default: `now()`]
+}
