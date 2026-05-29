@@ -122,7 +122,7 @@ const httpOnlyCookieConfig = () => ({
 })
 
 const login = (req, res) => {
-   let username = `${req.body.username}@cartomanabi.local`
+   let username = `${req.body.username}@austrobox.local`
    let password = req.body.password
 
    ad.authenticate(username, password, async function (err, auth) {
