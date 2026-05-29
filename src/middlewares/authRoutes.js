@@ -41,11 +41,11 @@ authRoutes.verifyToken = async (req, res, next) => {
          })
       }
 
-      if (rawToken && await isBlacklisted(rawToken)) {
-         return res.status(401).json({
-            msg: 'Sesión invalidada. Inicie sesión nuevamente.'
-         })
-      }
+      // if (rawToken && await isBlacklisted(rawToken)) {
+      //    return res.status(401).json({
+      //       msg: 'Sesión invalidada. Inicie sesión nuevamente.'
+      //    })
+      // }
 
       const decodeToken = extractAndDecodeToken(req)
 
