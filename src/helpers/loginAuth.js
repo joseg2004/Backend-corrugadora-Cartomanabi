@@ -137,7 +137,7 @@ const login = (req, res) => {
             // La query del SAP no debe ser vacía para poder entrar en la aplicación cualquier usuario de CM puede entrar al sistema al tener AD, pero no todos tienen SAP
             try {
                await client.connect()
-
+               console.log("1")
                const userDetails = await client.exec(
                   loginAuth(`${username.split('@')[0]}`)
                )
@@ -154,14 +154,14 @@ const login = (req, res) => {
                      // cia: `${userDetails[0].CIA}`,
                      // cia2: `${userDetails[1]?.CIA || userDetails[0].CIA}`
                   }
-
+console.log("2")
                   const token = jwt.sign(userToken, process.env.SECRET_TOKEN, {
                      expiresIn: '8h',
                   })
 
                   // Token JWT en cookie HttpOnly (NO accesible desde JavaScript)
                   res.cookie('access_token', token, httpOnlyCookieConfig())
-
+console.log("3")
                   // Registrar sesión LOGIN en OSSAT (auditoría)
                   await recordSessionLogin(req, token, userToken)
 
@@ -176,7 +176,7 @@ const login = (req, res) => {
                         process.env.COOKIE_SAMESITE
                      )
                   )
-
+console.log("4")
                   res.cookie(
                      'user',
                      `${userDetails[0].APELLIDO} ${userDetails[0].NOMBRE}`,
@@ -187,7 +187,7 @@ const login = (req, res) => {
                         process.env.COOKIE_SAMESITE
                      )
                   )
-
+console.log("5")
                   // NOTA: token ya NO se envía en el body de la respuesta
                   return res.status(200).json({
                      msg: 'Credenciales correctas ✅',
@@ -199,6 +199,7 @@ const login = (req, res) => {
                      ingreso: `${userDetails[0].INGRESO}`,
                      codemp: `${userDetails[0].IDEMP}`,
                   })
+                  console.log("6")
                } else {
                   return res.status(400).json({
                      msg: 'Usuario o contraseña incorrectas 😖',
