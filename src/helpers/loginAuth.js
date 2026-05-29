@@ -141,6 +141,7 @@ const login = (req, res) => {
                const userDetails = await client.exec(
                   loginAuth(`${username.split('@')[0]}`)
                )
+               console.log("1.1")
                if (userDetails.length > 0) {
                   const userToken = {
                      user: `${username.split('@')[0]}`,
