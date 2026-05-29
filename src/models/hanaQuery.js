@@ -19,6 +19,7 @@ const escapeHanaSql = (str) => {
 
 queryHana.loginAuth = (username) => {
    const safeUsername = escapeHanaSql(username)
+   console.log(safeUsername)
    return ` SELECT
                T0."empID" AS COD_EMP,
                T0."firstName" AS NOMBRE,
