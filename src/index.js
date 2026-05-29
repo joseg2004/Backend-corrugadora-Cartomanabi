@@ -10,7 +10,7 @@ const { validateSecretOnStartup } = require('./helpers/jwtRotation')
 const app = require('./server')
 
 // Inicializar Redis para token blacklist
-initRedis()
+// initRedis()
 
 // Validar política de rotación JWT
 validateSecretOnStartup()
